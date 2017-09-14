@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup,Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-auth-form',
@@ -14,8 +14,16 @@ export class AuthFormComponent implements OnInit {
   buttonText='Giris'
   isLogin=true
 
-  emailCtrl = new FormControl('')
-  passwordCtrl = new FormControl('')
+  emailCtrl = new FormControl('',[Validators.required,AuthFormComponent.isEmailValid])
+  passwordCtrl = new FormControl('', [Validators.required, Validators.minLength(6)])
+
+  //dogrulama metodumuz
+static isEmailValid(control: FormControl){
+  // deger gecerli bir email mi?
+  const email= control.value;
+
+  return email.indexOf('@') > 0 ? null : { invalidEmail: `gecersiz email!` };
+}
 
 
   /** Kosullu olarka olusturulacaklar*/
@@ -38,11 +46,15 @@ export class AuthFormComponent implements OnInit {
       this.isLogin = false;
 
         /** Register oldugu icin isim ve sifre 2 yi de olustur*/
-        this.passwordCtrl2 = new FormControl('')
-        this.nameCtrl = new FormControl('')
+        this.passwordCtrl2 = new FormControl('',[Validators.required, Validators.minLength(6)])
+        this.nameCtrl = new FormControl('', Validators.required)
         /** Gruba ekle*/
         this.authForm.addControl("password2",this.passwordCtrl2)
         this.authForm.addControl("name",this.nameCtrl)
+        this.authForm.valueChanges
+        .subscribe(formdakiDegisiklik =>{
+          console.log("Formda Degisiklik oldu  : ", formdakiDegisiklik)
+        })
 
     
     }

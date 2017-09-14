@@ -17,7 +17,7 @@ import { AuthFormComponent } from './auth-form/auth-form.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

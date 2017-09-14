@@ -11,6 +11,19 @@
       <input type="password" placeholder="******" class="form-control" formControlName="password">
     </div>
 
+    <div *ngIf="!authForm.valid" class="alert alert-warning sm">
+      <div *ngIf="authForm.get('password').hasError('required')">Sifre alani zorunludur</div>
+      <div *ngIf="authForm.get('password').hasError('minlength')">Sifreniz en az 6 karakter olmak zorunda</div>
+</div>
+
+
+<div *ngIf="!authForm.valid" class="alert alert-danger sm">
+  <div *ngIf="authForm.get('email').hasError('required')">Email Alani zorunludur!</div>
+  <div *ngIf="authForm.get('email').hasError('invalidEmail')">Email Gecersiz!!!</div>
+</div>
+
+
+
     <div *ngIf="!isLogin" class="form-group">
       <label>Password Again</label>
       <input type="password" placeholder="******" class="form-control" formControlName="password2">
@@ -21,9 +34,9 @@
       <input type="text" placeholder="name" class="form-control" formControlName="name">
     </div>
 
-    <button type="submit" class="btn btn-sm btn-success">{{buttonText}}</button>
+    <button [disabled]="!authForm.valid" class="btn btn-sm btn-success">{{buttonText}}</button>
   </form>
   
 </div>
 
-<div>test</div>
+<div>test**</div>
